@@ -1,4 +1,4 @@
-package model.java;
+package model.shared;
 
 public class Address {
 	String street;

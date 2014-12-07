@@ -1,6 +1,7 @@
 package model.java;
 
 import static org.junit.Assert.assertEquals;
+import model.shared.Person;
 import model.type.Type;
 
 import org.junit.Test;
@@ -10,7 +11,7 @@ import com.google.common.collect.Iterables;
 public class TypeTests {
 	@Test
 	public void test() {
-		Type personType = JavaType.fromJavaClass(Person.class);
+		Type personType = JavaTypeBuilder.fromJavaClass(Person.class);
 
 		assertEquals(personType.getName(), "Person");
 		assertEquals(personType.getNamespace(), "model.java");

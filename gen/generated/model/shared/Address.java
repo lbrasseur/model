@@ -1,6 +1,6 @@
-package generated.model.java;
+package generated.model.shared;
 
-import model.type.Value;
+import model.value.Value;
 
 public class Address {
   public final Value<String> street = new Value<String>();

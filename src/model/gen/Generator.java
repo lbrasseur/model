@@ -59,7 +59,7 @@ public class Generator {
 			append(content, "package %s;", type.getNamespace());
 			append(content, "");
 
-			append(content, "import model.type.Value;");
+			append(content, "import model.value.Value;");
 
 			Iterable<Type> typesToImport = Sets
 					.newHashSet(Iterables.filter(Iterables.transform(

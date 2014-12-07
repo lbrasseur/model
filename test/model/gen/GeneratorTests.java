@@ -2,8 +2,8 @@ package model.gen;
 
 import java.lang.reflect.Field;
 
-import model.java.JavaType;
-import model.java.Person;
+import model.java.JavaTypeBuilder;
+import model.shared.Person;
 import model.type.Property;
 import model.type.Type;
 
@@ -16,7 +16,7 @@ public class GeneratorTests {
 
 	@Test
 	public void test() throws Exception {
-		Type personType = JavaType.fromJavaClass(Person.class);
+		Type personType = JavaTypeBuilder.fromJavaClass(Person.class);
 		changePackage(personType);
 		Generator
 				.write(Generator.generate(ImmutableList.of(personType)), "gen");

@@ -1,6 +1,6 @@
-package generated.model.java;
+package generated.model.shared;
 
-import model.type.Value;
+import model.value.Value;
 import java.util.Date;
 
 public class Person {

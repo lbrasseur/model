@@ -16,11 +16,11 @@ public class BinderTests {
 		Person a = new Person();
 		Person b = new Person();
 
-		a.name.asObserver()
+		a.name.asObservable()
 			.map((String s) -> Strings.nullToEmpty(s))
 			.map((String s) -> s.toUpperCase())
 			.subscribe(b.name.asSubscriber());
-		a.birthday.asObserver()
+		a.birthday.asObservable()
 			.subscribe(b.birthday.asSubscriber());
 
 		a.setName("Pepe");
@@ -36,11 +36,11 @@ public class BinderTests {
 		Person a = new Person();
 		Person b = new Person();
 
-		a.<String>getValue("name").asObserver()
+		a.<String>getValue("name").asObservable()
 			.map((String s) -> Strings.nullToEmpty(s))
 			.map((String s) -> s.toUpperCase())
 			.subscribe(b.getValue("name").asSubscriber());
-		a.getValue("birthday").asObserver()
+		a.getValue("birthday").asObservable()
 			.subscribe(b.getValue("birthday").asSubscriber());
 
 		a.setName("Pepe");
@@ -56,11 +56,11 @@ public class BinderTests {
 		ComplexValue a = new MapComplexValue();
 		ComplexValue b = new MapComplexValue();
 
-		a.<String>getValue("name").asObserver()
+		a.<String>getValue("name").asObservable()
 			.map((String s) -> Strings.nullToEmpty(s))
 			.map((String s) -> s.toUpperCase())
 			.subscribe(b.getValue("name").asSubscriber());
-		a.getValue("birthday").asObserver()
+		a.getValue("birthday").asObservable()
 			.subscribe(b.getValue("birthday").asSubscriber());
 
 		a.set("name", "Pepe");

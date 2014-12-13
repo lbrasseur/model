@@ -26,7 +26,7 @@ public class Value<T> {
 		}
 	}
 
-	public Observable<T> asObserver() {
+	public Observable<T> asObservable() {
 		return Observable.create((Subscriber<? super T> aSubscriber) -> {
 			subscriber = aSubscriber;
 			subscriber.onNext(value);

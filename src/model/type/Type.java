@@ -3,10 +3,10 @@ package model.type;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Map;
+import java.util.Objects;
 
 import javax.annotation.Nullable;
 
-import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 
 public class Type {
@@ -47,7 +47,7 @@ public class Type {
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(name, namespace, properties);
+		return Objects.hash(name, namespace, properties);
 	}
 
 	@Override
@@ -59,15 +59,14 @@ public class Type {
 			return false;
 		}
 		Type that = (Type) o;
-		return Objects.equal(name, that.name)
-				&& Objects.equal(namespace, that.namespace)
-				&& Objects.equal(properties, that.properties);
+		return Objects.equals(name, that.name)
+				&& Objects.equals(namespace, that.namespace)
+				&& Objects.equals(properties, that.properties);
 	}
 
 	@Override
 	public String toString() {
-		return Objects.toStringHelper(Type.class).add("name", name)
-				.add("namespace", namespace).add("properties", properties)
-				.toString();
+		return "Type [name=" + name + ", namespace=" + namespace
+				+ ", properties=" + properties + "]";
 	}
 }

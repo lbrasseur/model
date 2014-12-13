@@ -13,11 +13,11 @@ public class TypeTests {
 	public void test() {
 		Type personType = JavaTypeBuilder.fromJavaClass(Person.class);
 
-		assertEquals(personType.getName(), "Person");
-		assertEquals(personType.getNamespace(), "model.java");
-		assertEquals(Iterables.size(personType.getProperties()), 4);
-		assertEquals(personType.getProperty("address").getType().getName(),
-				"Address");
-		assertEquals(personType.getProperty("father").getType(), personType);
+		assertEquals("Person", personType.getName());
+		assertEquals("model.shared", personType.getNamespace());
+		assertEquals(4, Iterables.size(personType.getProperties()));
+		assertEquals("Address", personType.getProperty("address").getType()
+				.getName());
+		assertEquals(personType, personType.getProperty("father").getType());
 	}
 }

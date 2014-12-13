@@ -1,23 +1,16 @@
 package model.value;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.Set;
+import java.util.Objects;
 
 import javax.annotation.Nullable;
 
-import model.type.Type;
-
-import com.google.common.base.Objects;
-import com.google.common.collect.Sets;
+import rx.Observable;
+import rx.Subscriber;
+import rx.observers.Subscribers;
 
 public class Value<T> {
 	private T value;
-	private Set<Runnable> changeHandlers;
-
-	public Value() {
-		changeHandlers = Sets.newHashSet();
-	}
+	private Subscriber<? super T> subscriber;
 
 	@Nullable
 	public T get() {
@@ -27,31 +20,30 @@ public class Value<T> {
 	public void set(@Nullable T value) {
 		T oldValue = this.value;
 		this.value = value;
-		if (!Objects.equal(oldValue, value)) {
-			for (Runnable changeHandler : changeHandlers) {
-				changeHandler.run();
-			}
+		if (!Objects.equals(oldValue, value) && subscriber != null
+				&& !subscriber.isUnsubscribed()) {
+			subscriber.onNext(value);
 		}
+	}
+
+	public Observable<T> asObserver() {
+		return Observable.create((Subscriber<? super T> aSubscriber) -> {
+			subscriber = aSubscriber;
+			subscriber.onNext(value);
+		});
+	}
+
+	public Subscriber<T> asSubscriber() {
+		return Subscribers.create((T value) -> set(value));
 	}
 
 	public boolean isNull() {
 		return value == null;
 	}
 
-	public Registration addChangeHandler(final Runnable handler) {
-		checkNotNull(handler);
-		changeHandlers.add(handler);
-		return new Registration() {
-			@Override
-			public void remove() {
-				changeHandlers.remove(handler);
-			}
-		};
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(value);
+		return Objects.hash(value, subscriber);
 	}
 
 	@Override
@@ -64,12 +56,12 @@ public class Value<T> {
 		}
 		@SuppressWarnings("unchecked")
 		Value<T> that = (Value<T>) o;
-		return Objects.equal(value, that.value);
+		return Objects.equals(value, that.value)
+				&& Objects.equals(subscriber, that.subscriber);
 	}
 
 	@Override
 	public String toString() {
-		return Objects.toStringHelper(Type.class).add("value", value)
-				.toString();
+		return "Value [value=" + value + ", subscriber=" + subscriber + "]";
 	}
 }

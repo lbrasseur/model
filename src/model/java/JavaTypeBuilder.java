@@ -16,13 +16,9 @@ import com.google.common.collect.Maps;
 public class JavaTypeBuilder {
 	private static Map<Class<?>, Type> typeCache = Maps.newHashMap();
 
-	private static final Function<Field, Property> PROPERTY_FROM_FIELD = new Function<Field, Property>() {
-		@Override
-		public Property apply(Field field) {
-			return new Property(field.getName(),
-					JavaTypeBuilder.fromJavaClass(field.getType()));
-		}
-	};
+	private static final Function<Field, Property> PROPERTY_FROM_FIELD =
+			(Field field) -> new Property(field.getName(),
+			JavaTypeBuilder.fromJavaClass(field.getType()));
 
 	public static Type fromJavaClass(Class<?> javaClass) {
 		checkNotNull(javaClass);

@@ -59,6 +59,7 @@ public class Generator {
 			append(content, "package %s;", type.getNamespace());
 			append(content, "");
 
+			append(content, "import model.value.JavaComplexValue;");
 			append(content, "import model.value.Value;");
 
 			Iterable<Type> typesToImport = Sets
@@ -87,7 +88,7 @@ public class Generator {
 			}
 			append(content, "");
 
-			append(content, "public class %s {", type.getName());
+			append(content, "public class %s extends JavaComplexValue {", type.getName());
 			for (Property property : type.getProperties()) {
 				append(content,
 						"  public final Value<%s> %s = new Value<%s>();",

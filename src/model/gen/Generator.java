@@ -118,7 +118,7 @@ public class Generator {
 			files.put(type,
 					new SourceFile(type.getName() + ".java", "/"
 							+ type.getNamespace().replaceAll("\\.", "/"),
-							content.toString()));
+							content.toString(), type));
 
 			for (Property property : type.getProperties()) {
 				typeTofile(property.getType(), files);
